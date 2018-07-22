@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var path = require('path');
+var session = require('express-session');
 //var session = require('express-session');
 //var MongoStore = require('connect-mongo')(session);
 
@@ -16,7 +17,8 @@ db.once('open', function () {
   // we're connected!
 });
 
-require('./app/models/User')
+require('./app/models/User');
+require('./app/models/Event');
 
 //use sessions for tracking logins
 /*app.use(session({
@@ -57,6 +59,7 @@ app.get('/map', function(req, res, next) {
 
 //create user
 User = mongoose.model('User');
+Event = mongoose.model('Event');
 /*var newUser = new User({ username: 'andres', password: '123' })
 newUser.save(function(err, newArticulo) {
     if (err) {
@@ -77,6 +80,42 @@ app.post('/', function (req, res, next) {
           return res.redirect('/map');
         }
       });
+    } else {
+      var err = new Error('All fields required.');
+      err.status = 400;
+      return next(err);
+    }
+  });
+
+app.post('/map', function (req, res, next) {
+  console.log(req.body);
+  var newEvent = new Event({ 
+      username: req.body.username, 
+      location: req.body.location,
+      time: req.body.time
+  });
+  newEvent.save(function(err, newEvent) {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+  });
+  res.send('Event saved successfully');
+});
+
+app.post('/register', function (req, res, next) {
+    console.log(req.body);
+    if (req.body.regusername && req.body.regpassword) {
+        var newUser = new User({ 
+            username: req.body.regusername, 
+            password: req.body.regpassword 
+        });
+        newUser.save(function(err, newUser) {
+            if (err) {
+                return next(err);
+            }
+        });
+        return res.redirect('/map');
     } else {
       var err = new Error('All fields required.');
       err.status = 400;

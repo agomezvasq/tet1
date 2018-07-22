@@ -14,15 +14,67 @@
     <!--The div element for the map -->
     <div id="map"></div>
     <script>
+var map;
+
+var options = {
+    enableHighAccuracy: false
+};
+
 // Initialize and add the map
 function initMap() {
   // The location of Uluru
-  var uluru = {lat: -25.344, lng: 131.036};
+  var medellin = {lat: 6.244203, lng: -75.58121189999997};
   // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uluru});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: uluru, map: map});
+  map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 11, center: medellin});
+
+  var id = navigator.geolocation.watchPosition(success, error, options);
+}
+
+function error(err) {
+  console.warn('ERROR(' + err.code + '): ' + err.message);
+}
+
+function success(pos) {
+  var crd = pos.coords;
+
+  var location = { 
+    lat: crd.latitude,
+    lng: crd.longitude
+  }
+
+  var marker = new google.maps.Marker({position: location, map: map});
+
+  time = new Date();
+
+  eventData = {
+    username: 'andres',
+    location: location,
+    time: time.toISOString()
+  };
+
+  post('/map', eventData, function(responseText) {
+    console.log(responseText);
+  });
+
+  document.getElementById("history").innerHTML += `<div>andres ${JSON.stringify(location)} ${time.toISOString()}</div>`
+}
+
+function post(url, data, success) {
+  var formData = new FormData(); 
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function()
+  {
+      if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+      {
+          success(xmlHttp.responseText);
+      }
+  }
+  xmlHttp.open('post', url); 
+  xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  xmlHttp.setRequestHeader('Content-Type', 'application/json');
+  xmlHttp.send(JSON.stringify(data)); 
+  return xmlHttp;
 }
     </script>
     <!--Load the API from the specified URL
@@ -33,5 +85,6 @@ function initMap() {
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMAHHclfxfIVeel1opF4lGw5qrlFzXtXE&callback=initMap">
     </script>
+    <div id="history"></div>
   </body>
 </html>
