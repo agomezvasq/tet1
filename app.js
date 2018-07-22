@@ -18,8 +18,8 @@ db.once('open', function () {
 
 root = __dirname;
 
-require(root + '/app/models/User');
-require(root + '/app/models/Event');
+require(root + '/app/models/user');
+require(root + '/app/models/event');
 
 //use sessions for tracking logins
 app.use(session({
