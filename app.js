@@ -4,8 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var path = require('path');
 var session = require('express-session');
-//var session = require('express-session');
-//var MongoStore = require('connect-mongo')(session);
+var MongoStore = require('connect-mongo')(session);
 
 //connect to MongoDB
 mongoose.connect('mongodb://andres:123456a@ds147011.mlab.com:47011/tet1db');
@@ -21,14 +20,14 @@ require('./app/models/User');
 require('./app/models/Event');
 
 //use sessions for tracking logins
-/*app.use(session({
+app.use(session({
   secret: 'work hard',
   resave: true,
   saveUninitialized: false,
   store: new MongoStore({
     mongooseConnection: db
   })
-}));*/
+}));
 
 // parse incoming requests
 app.use(bodyParser.json());
@@ -49,11 +48,39 @@ models.forEach(function (model) {
 var app = express();*/
 
 app.get('/', function(req, res, next) {
+  if (req.session) {
+    User.findById(req.session.userId).exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          return res.sendFile(path.join(__dirname, '/app/views/index.html'));
+        } else {
+          return res.redirect('/map')
+        }
+      }
+    });
+  } else {
     return res.sendFile(path.join(__dirname, '/app/views/index.html'));
+  }
 });
 
 app.get('/map', function(req, res, next) {
-    return res.sendFile(path.join(__dirname, '/app/views/map.html'));
+  if (req.session) {
+    User.findById(req.session.userId).exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          var err = new Error('Not authorized! Go back!');
+          err.status = 400;
+          return next(err);
+        } else {
+          return res.sendFile(path.join(__dirname, '/app/views/map.html'));
+        }
+      }
+    });
+  }
 });
 
 
@@ -77,6 +104,7 @@ app.post('/', function (req, res, next) {
           err.status = 401;
           return next(err);
         } else {
+          req.session.userId = user._id;
           return res.redirect('/map');
         }
       });
@@ -89,18 +117,44 @@ app.post('/', function (req, res, next) {
 
 app.post('/map', function (req, res, next) {
   console.log(req.body);
-  var newEvent = new Event({ 
-      username: req.body.username, 
-      location: req.body.location,
-      time: req.body.time
-  });
-  newEvent.save(function(err, newEvent) {
-      if (err) {
-        console.log(err);
+  User.findById(req.session.userId).exec(function (error, user) {
+    if (error) {
+      return next(error);
+    } else {
+      if (user === null) {
+        var err = new Error('Not authorized! Go back!');
+        err.status = 400;
         return next(err);
+      } else {
+        var newEvent = new Event({ 
+            username: user.username, 
+            location: req.body.location,
+            time: req.body.time
+        });
+        newEvent.save(function(err, newEvent) {
+            if (err) {
+              console.log(err);
+              return next(err);
+            } else {              
+              res.send('Event saved successfully');
+            } 
+        });
       }
+    }
   });
-  res.send('Event saved successfully');
+});
+
+app.get('/logout', function (req, res, next) {
+  if (req.session) {
+    // delete session object
+    req.session.destroy(function (err) {
+      if (err) {
+        return next(err);
+      } else {
+        return res.redirect('/');
+      }
+    });
+  }
 });
 
 app.post('/register', function (req, res, next) {
@@ -113,9 +167,11 @@ app.post('/register', function (req, res, next) {
         newUser.save(function(err, newUser) {
             if (err) {
                 return next(err);
+            } else {
+              req.session.userId = newUser._id;
+              return res.redirect('/map');
             }
         });
-        return res.redirect('/map');
     } else {
       var err = new Error('All fields required.');
       err.status = 400;
