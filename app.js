@@ -16,8 +16,10 @@ db.once('open', function () {
   // we're connected!
 });
 
-require('./app/models/User');
-require('./app/models/Event');
+root = __dirname;
+
+require(root + '/app/models/User');
+require(root + '/app/models/Event');
 
 //use sessions for tracking logins
 app.use(session({
@@ -38,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(express.static(__dirname + '/templateLogReg'));
 
 // include routes
-var routes = require('./app/controllers/loginController');
+var routes = require(root + '/app/controllers/loginController');
 //app.use('/', routes);
 
 /*var models = glob.sync(config.root + './app/models/*.js');
