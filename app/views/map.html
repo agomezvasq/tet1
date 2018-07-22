@@ -17,6 +17,8 @@
     <script>
 var map;
 
+var username;
+
 var options = {
     enableHighAccuracy: false
 };
@@ -29,7 +31,17 @@ function initMap() {
   map = new google.maps.Map(
       document.getElementById('map'), {zoom: 11, center: medellin});
 
-  var id = navigator.geolocation.watchPosition(success, error, options);
+  get('/getEvents', function(responseText) {
+    var events = JSON.parse(responseText);
+    events.events.forEach(function(event) {
+      document.getElementById("history").innerHTML += 
+        `<div>${event.username} ${JSON.stringify(event.location)} ${event.time}</div>`
+    });
+
+    username = events.username;
+
+    var id = navigator.geolocation.watchPosition(success, error, options);
+  });
 }
 
 function error(err) {
@@ -46,9 +58,9 @@ function success(pos) {
 
   var marker = new google.maps.Marker({position: location, map: map});
 
-  time = new Date();
+  var time = new Date();
 
-  eventData = {
+  var eventData = {
     location: location,
     time: time.toISOString()
   };
@@ -57,7 +69,21 @@ function success(pos) {
     console.log(responseText);
   });
 
-  document.getElementById("history").innerHTML += `<div>andres ${JSON.stringify(location)} ${time.toISOString()}</div>`
+  document.getElementById("history").innerHTML += `<div style="color: blue;">${username} ${JSON.stringify(location)} ${time.toISOString()}</div>`
+}
+
+function get(url, success) {
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function()
+  {
+      if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+      {
+          success(xmlHttp.responseText);
+      }
+  }
+  xmlHttp.open('get', url); 
+  xmlHttp.send(); 
+  return xmlHttp;
 }
 
 function post(url, data, success) {

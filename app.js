@@ -65,6 +65,56 @@ app.get('/', function(req, res, next) {
   }
 });
 
+app.get('/getUsername', function(req, res, next) {
+  if (req.session) {
+    User.findById(req.session.userId).exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          var err = new Error('Not logged in');
+          err.status = 400;
+          return next(err);
+        } else {
+          res.send(user.username);
+        }
+      }
+    });
+  } else {
+    var err = new Error('Not logged in');
+    err.status = 400;
+    return next(err);
+  }
+});
+
+app.get('/getEvents', function(req, res, next) {
+  if (req.session) {
+    User.findById(req.session.userId).exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          var err = new Error('Not authorized!');
+          err.status = 400;
+          return next(err);
+        } else {
+          Event.find({ username: user.username }, function(err, events) {
+            if (err) {
+              return next(err);
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({ username: user.username, events: events }));
+          });
+        }
+      }
+    });
+  } else {
+    var err = new Error('Not authorized!');
+    err.status = 400;
+    return next(err);
+  }
+});
+
 app.get('/map', function(req, res, next) {
   if (req.session) {
     User.findById(req.session.userId).exec(function (error, user) {
