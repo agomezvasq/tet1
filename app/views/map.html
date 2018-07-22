@@ -36,6 +36,8 @@ function initMap() {
     events.events.forEach(function(event) {
       document.getElementById("history").innerHTML += 
         `<div>${event.username} ${JSON.stringify(event.location)} ${event.time}</div>`
+      
+      var marker = new google.maps.Marker({position: event.location, map: map});
     });
 
     username = events.username;
