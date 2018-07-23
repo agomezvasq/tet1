@@ -25,6 +25,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "glob": "^7.1.2",
+    "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.2.4"
   }
 }

@@ -5,16 +5,55 @@
     </head>
     <body>
         <h1>Bienvenido</h1>
-        <form action="/" method="post">
+        <form id="loginForm">
                 <input type="text" placeholder="Usuario" name="username">
                 <input type="password" placeholder="Contraseña" name="password">
                 <button type="submit">Ingresar</button>
         </form>
         <h1>Registrarse</h1>
-        <form action="/register" method="post">
+        <form id="registerForm">
             <input type="text" placeholder="Usuario" name="regusername">
             <input type="password" placeholder="Contraseña" name="regpassword">
             <button type="submit">Registrarse</button>
         </form>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <script>
+$('#loginForm').submit(function(event) {
+    $.ajax({
+        url: '/login',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+            username: $("input[name='username']").val(),
+            password: $("input[name='password']").val()
+        },
+        success: function(response) {
+            window.localStorage.setItem('token', response.token);
+            window.location.href = '/map';
+        }
+    });
+    event.preventDefault();
+});
+
+$('#registerForm').submit(function(event) {
+    $.ajax({
+        url: '/register',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+            username: $("input[name='regusername']").val(),
+            password: $("input[name='regpassword']").val()
+        },
+        success: function(response) {    
+            window.localStorage.setItem('token', response.token);
+            window.location.href = '/map';
+        }
+    });
+    event.preventDefault();
+});
+        </script>
     </body>
 </html>

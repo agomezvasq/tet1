@@ -31,14 +31,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compress());
 
 //use sessions for tracking logins
-app.use(session({
+/*app.use(session({
   secret: 'work hard',
   resave: true,
   saveUninitialized: false,
   store: new MongoStore({
     mongooseConnection: db
   })
-}));
+}));*/
 
 //Require controllers
 var controllers = glob.sync(__dirname + '/app/controllers/*.js');

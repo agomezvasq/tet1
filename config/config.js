@@ -10,7 +10,8 @@ var config = {
       name: 'tet1'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://andres:123456a@ds147011.mlab.com:47011/tet1db'
+    db: 'mongodb://andres:123456a@ds147011.mlab.com:47011/tet1db',
+    secret: 'secret'
   },
 
   test: {
@@ -20,7 +21,8 @@ var config = {
       name: 'tet1'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://andres:123456a@ds147011.mlab.com:47011/tet1db'
+    db: 'mongodb://andres:123456a@ds147011.mlab.com:47011/tet1db',
+    secret: 'secret'
   },
 
   production: {
@@ -30,7 +32,8 @@ var config = {
       name: 'tet1'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://andres:123456a@ds147011.mlab.com:47011/tet1db'
+    db: 'mongodb://andres:123456a@ds147011.mlab.com:47011/tet1db',
+    secret: 'secret'
   }
 };
 

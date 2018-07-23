@@ -11,13 +11,25 @@
   </head>
   <body>
     <h3>My Google Maps Demo</h3>
-    <a href="/logout">Logout</a>
+    <button onclick="logout()">Logout</button>
     <!--The div element for the map -->
     <div id="map"></div>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
     <script>
+
+function logout() {
+  window.localStorage.removeItem('token');
+  window.location.href = '/';
+}
+    
 var map;
 
 var username;
+
+var token = window.localStorage.getItem('token');
 
 var options = {
     enableHighAccuracy: false
@@ -31,8 +43,8 @@ function initMap() {
   map = new google.maps.Map(
       document.getElementById('map'), {zoom: 11, center: medellin});
 
-  get('/map/getEvents', function(responseText) {
-    var events = JSON.parse(responseText);
+  get('/map/getEvents', function(response) {
+    var events = response;
     events.events.forEach(function(event) {
       document.getElementById("history").innerHTML += 
         `<div>${event.username} ${JSON.stringify(event.location)} ${event.time}</div>`
@@ -67,14 +79,46 @@ function success(pos) {
     time: time.toISOString()
   };
 
-  post('/map', eventData, function(responseText) {
-    console.log(responseText);
+  post('/map', eventData, function(response) {
+    console.log(response);
   });
 
   document.getElementById("history").innerHTML += `<div style="color: blue;">${username} ${JSON.stringify(location)} ${time.toISOString()}</div>`
 }
 
 function get(url, success) {
+  $.ajax({
+    url: url,
+    method: 'GET',
+    headers: {
+      'x-access-token': token
+    },
+    dataType: 'json',
+    success: success,
+    error: function(request, status, error) {
+      window.location.href = '/error';
+    }
+  });
+}
+
+function post(url, data, success) {
+  $.ajax({
+    url: url,
+    method: 'POST',
+    headers: {
+      'x-access-token': token,
+      'Content-Type': 'application/json'
+    },
+    dataType: 'json',
+    data: JSON.stringify(data),
+    success: success,
+    error: function(request, status, error) {
+      window.location.href = '/error';
+    }
+  });
+}
+
+/*function get(url, success) {
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function()
   {
@@ -103,7 +147,7 @@ function post(url, data, success) {
   xmlHttp.setRequestHeader('Content-Type', 'application/json');
   xmlHttp.send(JSON.stringify(data)); 
   return xmlHttp;
-}
+}*/
     </script>
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
