@@ -31,7 +31,7 @@ function initMap() {
   map = new google.maps.Map(
       document.getElementById('map'), {zoom: 11, center: medellin});
 
-  get('/getEvents', function(responseText) {
+  get('/map/getEvents', function(responseText) {
     var events = JSON.parse(responseText);
     events.events.forEach(function(event) {
       document.getElementById("history").innerHTML += 

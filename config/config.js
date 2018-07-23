@@ -1,37 +1,36 @@
-var path = require('path'),
-    rootPath = path.normalize(__dirname + '/..'),
-    env = process.env.NODE_ENV || 'test';
+var path = require('path');
+var rootPath = path.normalize(__dirname + '/..');
+var env = process.env.NODE_ENV || 'test';
 
 var config = {
   development: {
-    baseUrl: "/",
+    baseUrl: '/',
     root: rootPath,
     app: {
       name: 'tet1'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/articulosem-development'
+    db: 'mongodb://andres:123456a@ds147011.mlab.com:47011/tet1db'
   },
 
   test: {
-//    baseUrl: "/nodeArticulos/",
-    baseUrl: "/",
+    baseUrl: '/',
     root: rootPath,
     app: {
       name: 'tet1'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://mongo-server/articulosem-test'
+    db: 'mongodb://andres:123456a@ds147011.mlab.com:47011/tet1db'
   },
 
   production: {
-    baseUrl: "/",
+    baseUrl: '/',
     root: rootPath,
     app: {
       name: 'tet1'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://emontoya:*******@ds163397.mlab.com:63397/emontoya'
+    db: 'mongodb://andres:123456a@ds147011.mlab.com:47011/tet1db'
   }
 };
 
