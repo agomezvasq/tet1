@@ -21,6 +21,11 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
         <script>
+var token = window.localStorage.getItem('token');
+if (token) {
+    window.location.href = '/map';
+}
+
 $('#loginForm').submit(function(event) {
     $.ajax({
         url: '/login',
