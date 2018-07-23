@@ -23,7 +23,7 @@ router.post('/login', function (req, res, next) {
   if (req.body.username && req.body.password) {
     User.authenticate(req.body.username, req.body.password, function (error, user) {
       if (error || !user) {
-        res.json({ auth: false, error: 'Wrong email or password.' });
+        res.json({ auth: false, error: 'Usuario o contraseña incorrectos.' });
       } else {
         var token = jwt.sign({ id: user._id }, config.secret, {
           expiresIn: 86400 // expires in 24 hours
@@ -33,24 +33,8 @@ router.post('/login', function (req, res, next) {
       }
     });
   } else {
-    res.json({ auth: false, error: 'All fields required.' });
+    res.json({ auth: false, error: 'Todos los campos requeridos.' });
   }
-});
-
-
-router.get('/me', function(req, res) {
-  var token = req.headers['x-access-token'];
-  if (!token) {
-    return res.status(401).send({ auth: false, message: 'No token provided.' });
-  }
-
-  jwt.verify(token, config.secret, function(err, decoded) {
-    if (err) {
-      return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-    }
-    
-    res.status(200).send(decoded);
-  });
 });
 
 router.post('/register', function (req, res, next) {
@@ -61,18 +45,22 @@ router.post('/register', function (req, res, next) {
       });
       newUser.save(function(err, newUser) {
           if (err) {
-              return next(err);
+            if (err.code == 11000) {
+              return res.json({ register: false, error: 'Este usuario ya existe.' });
+            } else {
+              return res.json({ register: false, error: err.err });
+            }
           } else {
             // create a token
             var token = jwt.sign({ id: newUser._id }, config.secret, {
               expiresIn: 86400 // expires in 24 hours
             });
 
-            return res.json({ auth: true, token: token });
+            return res.json({ register: true, token: token });
           }
       });
   } else {
-    return res.json({ auth: false, error: 'All fields required.' });
+    return res.json({ register: false, error: 'Todos los campos requeridos.' });
   }
 });
 

@@ -5,12 +5,14 @@
     </head>
     <body>
         <h1>Bienvenido</h1>
+        <span id="loginError" style="color: red;"></span>
         <form id="loginForm">
                 <input type="text" placeholder="Usuario" name="username">
                 <input type="password" placeholder="Contraseña" name="password">
                 <button type="submit">Ingresar</button>
         </form>
         <h1>Registrarse</h1>
+        <span id="registerError" style="color: red;"></span>
         <form id="registerForm">
             <input type="text" placeholder="Usuario" name="regusername">
             <input type="password" placeholder="Contraseña" name="regpassword">
@@ -26,6 +28,21 @@ if (token) {
     window.location.href = '/map';
 }
 
+function clearErrors() {
+    $('#loginError').text('');
+    $('#registerError').text('');
+}
+
+function loginError(error) {
+    clearErrors();
+    $("#loginError").text(error);
+}
+
+function registerError(error) {
+    clearErrors();
+    $("#registerError").text(error);
+}
+
 $('#loginForm').submit(function(event) {
     $.ajax({
         url: '/login',
@@ -36,8 +53,12 @@ $('#loginForm').submit(function(event) {
             password: $("input[name='password']").val()
         },
         success: function(response) {
-            window.localStorage.setItem('token', response.token);
-            window.location.href = '/map';
+            if (response.auth) {
+                window.localStorage.setItem('token', response.token);
+                window.location.href = '/map';
+            } else {
+                loginError(response.error);
+            }
         }
     });
     event.preventDefault();
@@ -53,8 +74,12 @@ $('#registerForm').submit(function(event) {
             password: $("input[name='regpassword']").val()
         },
         success: function(response) {    
-            window.localStorage.setItem('token', response.token);
-            window.location.href = '/map';
+            if (response.auth) {
+                window.localStorage.setItem('token', response.token);
+                window.location.href = '/map';
+            } else {
+                registerError(response.error);
+            }
         }
     });
     event.preventDefault();
