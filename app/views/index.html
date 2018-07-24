@@ -74,7 +74,7 @@ $('#registerForm').submit(function(event) {
             password: $("input[name='regpassword']").val()
         },
         success: function(response) {    
-            if (response.auth) {
+            if (response.register) {
                 window.localStorage.setItem('token', response.token);
                 window.location.href = '/map';
             } else {
