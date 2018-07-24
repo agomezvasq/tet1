@@ -16,7 +16,9 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - mongo-server      
+      - mongo-server
+    environment:
+      - NODE_ENV=test
   mongo-server:
     container_name: mongo-server
     image: mongo
