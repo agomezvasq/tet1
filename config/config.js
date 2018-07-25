@@ -32,7 +32,7 @@ var config = {
       name: 'tet1'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://andres:123456a@mongo-server/tet1db',
+    db: 'mongodb://mongo-server/tet1db',
     secret: 'secret'
   }
 };
