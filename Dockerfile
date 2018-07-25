@@ -10,7 +10,7 @@ ENV PORT $PORT
 WORKDIR /nodeApp
 COPY . ./
 
-RUN mkdir /etc/nginx/ssl
+RUN mkdir -p /etc/nginx/ssl
 RUN mv ssl /etc/nginx/ssl
 
 RUN npm install --test
