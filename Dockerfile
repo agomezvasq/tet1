@@ -10,9 +10,6 @@ ENV PORT $PORT
 WORKDIR /nodeApp
 COPY . ./
 
-RUN mkdir -p /etc/nginx/
-RUN mv ssl /etc/nginx/
-
 RUN npm install --test
 
 EXPOSE 3000
