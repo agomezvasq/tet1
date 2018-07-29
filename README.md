@@ -52,7 +52,11 @@ Construir y ejecutar:
     
 ## Instalación (local)
 
-    $ export NODE_ENV=development
+    $ set NODE_ENV=development       # en Windows
+    $ export NODE_ENV=development    # en Linux
+
+Instalación:
+
     $ npm install
     
 Ejecutar:
