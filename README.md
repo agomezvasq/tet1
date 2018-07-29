@@ -64,8 +64,8 @@ Chequear que el servicio esté corriendo:
 
 Configurar la variable de ambiente development para usar la string de conexión correcta a la base de datos:
 
-    $ set NODE_ENV=development       # en Windows
-    $ export NODE_ENV=development    # en Linux
+    $ set NODE_ENV=development       # para Windows
+    $ export NODE_ENV=development    # para Linux
 
 Instalación:
 
