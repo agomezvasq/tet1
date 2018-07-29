@@ -77,6 +77,10 @@ Ejecutar:
     
 El servidor queda corriendo en http://localhost/ .
 
+# Screenshots
+
+//TODO
+
 ## Referencias
 
 Esqueleto del proyecto; MVC, config.js y archivos para Docker: https://github.com/st0263eafit/appwebArticulosNodejs
