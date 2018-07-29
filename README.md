@@ -50,11 +50,16 @@ Construir y ejecutar:
     $ docker-compose build
     $ docker-compose up
     
-## Para ejecutar localmente
+## Instalación (local)
 
     $ export NODE_ENV=development
     $ npm install
+    
+Ejecutar:
+
     $ npm start
+    
+Navegar a https://localhost/ .
 
 ## Referencias
 
