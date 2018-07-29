@@ -49,6 +49,12 @@ Construir y ejecutar:
 
     $ docker-compose build
     $ docker-compose up
+    
+## Para ejecutar localmente
+
+    $ export NODE_ENV=development
+    $ npm install
+    $ npm start
 
 ## Referencias
 
