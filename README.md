@@ -54,6 +54,8 @@ Construir y ejecutar:
     
 ## Instalación (local, localhost)
 
+Configurar la variable de ambiente development.
+
     $ set NODE_ENV=development       # en Windows
     $ export NODE_ENV=development    # en Linux
 
@@ -70,34 +72,34 @@ Navegar a http://localhost/ .
 ## Referencias
 
 Esqueleto del proyecto; MVC, config.js y archivos para Docker:
-https://github.com/st0263eafit/appwebArticulosNodejs
+- https://github.com/st0263eafit/appwebArticulosNodejs
 
 Google Maps API:
-https://developers.google.com/maps/documentation/javascript/tutorial
-https://scotch.io/tutorials/making-mean-apps-with-google-maps-part-i
+- https://developers.google.com/maps/documentation/javascript/tutorial
+- https://scotch.io/tutorials/making-mean-apps-with-google-maps-part-i
 
 MongoDB:
-https://docs.mongodb.com/manual
+- https://docs.mongodb.com/manual
 
 Rest API:
-https://hackernoon.com/restful-api-design-with-node-js-26ccf66eab09
-https://devcenter.heroku.com/articles/mean-apps-restful-api
+- https://hackernoon.com/restful-api-design-with-node-js-26ccf66eab09
+- https://devcenter.heroku.com/articles/mean-apps-restful-api
 
 Autenticación:
-https://medium.com/createdd-notes/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
+- https://medium.com/createdd-notes/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
 
 Middleware:
-https://expressjs.com/en/guide/writing-middleware.html
+- https://expressjs.com/en/guide/writing-middleware.html
 
 SSH:
-https://www.howtogeek.com/336775/how-to-enable-and-use-windows-10s-built-in-ssh-commands/
+- https://www.howtogeek.com/336775/how-to-enable-and-use-windows-10s-built-in-ssh-commands/
 
 JWT y llamadas REST seguras:
-https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
-https://www.codementor.io/olatundegaruba/5-steps-to-authenticating-node-js-with-jwt-7ahb5dmyr
-https://medium.freecodecamp.org/securing-node-js-restful-apis-with-json-web-tokens-9f811a92bb52
+- https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
+- https://www.codementor.io/olatundegaruba/5-steps-to-authenticating-node-js-with-jwt-7ahb5dmyr
+- https://medium.freecodecamp.org/securing-node-js-restful-apis-with-json-web-tokens-9f811a92bb52
 
 Referencia:
-https://www.w3schools.com/
-https://developer.mozilla.org/en-US/
-https://stackoverflow.com/
+- https://www.w3schools.com/
+- https://developer.mozilla.org/en-US/
+- https://stackoverflow.com/
