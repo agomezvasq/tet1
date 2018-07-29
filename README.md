@@ -63,7 +63,7 @@ Ejecutar:
 
     $ npm start
     
-Navegar a https://localhost/ .
+Navegar a http://localhost/ .
 
 ## Referencias
 
