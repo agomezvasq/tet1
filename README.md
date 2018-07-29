@@ -2,6 +2,8 @@
 
 Desarrollado en modelo MVC con API REST seguro. Autenticación con usuario y contraseña (password hashing).
 
+Contiene Dockerfile para despliegue en contenedor CentOS 7. Tiene 3 ambientes de desarrollo: development, test y production. Para test y production se configura la variable NODE_ENV en docker-compose.yml, aunque hasta este momento no varía el funcionamiento o las opciones entre estos dos ambientes.
+
 Por: Andrés Gómez, agomezv3@eafit.edu.co.
 
 ## Instalación (CentOS 7 y Docker)
