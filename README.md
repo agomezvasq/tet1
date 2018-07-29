@@ -75,7 +75,7 @@ Ejecutar:
 
     $ npm start
     
-Navegar a http://localhost/ .
+El servidor queda corriendo en http://localhost/ .
 
 ## Referencias
 
