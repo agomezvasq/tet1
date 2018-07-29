@@ -4,7 +4,7 @@ Desarrollado en modelo MVC con API REST seguro. Autenticación con usuario y con
 
 by: Andrés Gómez - agomezv3@eafit.edu.co
 
-## Instalación (CentOS 7)
+## Instalación (CentOS 7 y Docker)
 
 Docker setup:
 
@@ -52,7 +52,7 @@ Construir y ejecutar:
     $ docker-compose build
     $ docker-compose up
     
-## Instalación (local)
+## Instalación (local, localhost)
 
     $ set NODE_ENV=development       # en Windows
     $ export NODE_ENV=development    # en Linux
