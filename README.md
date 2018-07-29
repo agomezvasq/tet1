@@ -2,6 +2,8 @@
 
 Desarrollado en modelo MVC con API REST seguro. Autenticación con usuario y contraseña (password hashing).
 
+by: Andrés Gómez - agomezv3@eafit.edu.co
+
 ## Instalación (CentOS 7)
 
 Docker setup:
