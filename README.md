@@ -79,9 +79,9 @@ El servidor queda corriendo en http://localhost/ .
 
 # Screenshots
 
-![alt text](https://imgur.com/Vh2EpZB)
-![alt text](https://imgur.com/2cIBDQh)
-![alt text](https://imgur.com/3YnJuc1)
+![alt text](https://imgur.com/Vh2EpZB.jpg)
+![alt text](https://imgur.com/2cIBDQh.jpg)
+![alt text](https://imgur.com/3YnJuc1.jpg)
 
 ## Referencias
 
