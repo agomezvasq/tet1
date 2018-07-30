@@ -79,10 +79,6 @@ El servidor queda corriendo en http://localhost/ .
 
 # Screenshots
 
-![alt text](https://imgur.com/Vh2EpZB.jpg)
-![alt text](https://imgur.com/2cIBDQh.jpg)
-![alt text](https://imgur.com/3YnJuc1.jpg)
-
 ## Referencias
 
 Esqueleto del proyecto; MVC, config.js y archivos para Docker: https://github.com/st0263eafit/appwebArticulosNodejs
